@@ -1,69 +1,72 @@
 import React, { useState } from "react";
 
-function RecipeCreate({ addRecipe }) {
-  const [name, setName] = useState("");
-  const [cuisine, setCuisine] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [ingredients, setIngredients] = useState("");
-  const [preparation, setPreparation] = useState("");
+function RecipeCreate({ createRecipe }) {
+
+  const [recipe, setRecipe] = useState({
+    name: "",
+    cuisine: "",
+    photo: "",
+    ingredients: "",
+    preparation: ""
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setRecipe(prevState => ({ ...prevState, [name]: value }));
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newRecipe = {
-      id: Math.random().toString(36).substr(2, 9),
-      name,
-      cuisine,
-      photo,
-      ingredients,
-      preparation,
-    };
-    addRecipe(newRecipe);
-    setName("");
-    setCuisine("");
-    setPhoto("");
-    setIngredients("");
-    setPreparation("");
-  };
+    createRecipe(recipe);
+    setRecipe({
+      name: "",
+      cuisine: "",
+      photo: "",
+      ingredients: "",
+      preparation: ""
+    });
+  }
 
   return (
     <form name="create" onSubmit={handleSubmit}>
       <table>
         <tbody>
           <tr>
-            <td>Name:</td>
+          {/* <td><label htmlFor="name">Name:</label></td> */}
             <td>
-              <input name="name" value={name} onChange={(e) => setName(e.target.value)} />
+              <input name="name" type="text" placeholder="Name" value={recipe.name} onChange={handleChange} required />
             </td>
-          </tr>
-          <tr>
-            <td>Cuisine:</td>
             <td>
-              <input name="cuisine" value={cuisine} onChange={(e) => setCuisine(e.target.value)} />
+              <input name="cuisine" type="text" placeholder="Cuisine" value={recipe.cuisine} onChange={handleChange} required />
             </td>
-          </tr>
-          <tr>
-            <td>Photo URL:</td>
             <td>
-              <input name="photo" value={photo} onChange={(e) => setPhoto(e.target.value)} />
+              <input name="photo" type="url" placeholder="URL" value={recipe.photo} onChange={handleChange} required />
             </td>
-          </tr>
-          <tr>
-            <td>Ingredients:</td>
             <td>
-              <textarea name="ingredients" value={ingredients} onChange={(e) => setIngredients(e.target.value)} />
+              <textarea name="ingredients" placeholder="Ingredients" value={recipe.ingredients} onChange={handleChange} required />
             </td>
-          </tr>
-          <tr>
-            <td>Preparation:</td>
             <td>
-              <textarea name="preparation" value={preparation} onChange={(e) => setPreparation(e.target.value)} />
+              <textarea name="preparation" placeholder="Preparation" value={recipe.preparation} onChange={handleChange} required />
             </td>
-          </tr>
-          <tr>
-            <td></td>
             <td>
               <button type="submit">Create</button>
             </td>
+
+
+
+
+
+
+          </tr>
+          
+            
+         
+          
+            
+         
+          <tr>
+            <td></td>
+           
           </tr>
         </tbody>
       </table>

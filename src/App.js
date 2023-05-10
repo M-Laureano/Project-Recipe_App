@@ -2,27 +2,24 @@ import React, { useState } from "react";
 import "./App.css";
 import RecipeCreate from "./RecipeCreate";
 import RecipeList from "./RecipeList";
-import RecipeData from "./RecipeData";
+import RecipeData from "./RecipeData"
 
 function App() {
   const [recipes, setRecipes] = useState(RecipeData);
 
-  const addRecipe = (recipe) => {
-    setRecipes([...recipes, recipe]);
+  const deleteRecipe = (index) => {
+    setRecipes((prevRecipes) => prevRecipes.filter((_, i) => i !== index));
   };
 
-  const deleteRecipe = (id) => {
-    const filteredRecipes = recipes.filter((recipe) => recipe.id !== id);
-    setRecipes(filteredRecipes);
+  const createRecipe = (recipe) => {
+    setRecipes((prevRecipes) => [...prevRecipes, recipe]);
   };
 
   return (
     <div className="App">
-      <header>
-        <h1>Delicious Food Recipes</h1>
-      </header>
+      <header><h1>Delicious Food Recipes</h1></header>
       <RecipeList recipes={recipes} deleteRecipe={deleteRecipe} />
-      <RecipeCreate addRecipe={addRecipe} />
+      <RecipeCreate createRecipe={createRecipe} />
     </div>
   );
 }
